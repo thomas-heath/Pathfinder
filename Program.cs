@@ -1,5 +1,5 @@
-﻿using System;
-using Map;
+﻿using System.Numerics;
+using System.Collections.Generic;
 
 namespace AI_Pathfinder
 {
@@ -7,11 +7,11 @@ namespace AI_Pathfinder
     {
         static void Main(string[] args)
         {
-            Map.Map mapGenerator = new Map.Map();
-
-            Console.WriteLine(mapGenerator.GetMapString());
-
-            Console.WriteLine(mapGenerator.GetChildString());
+            Map map = new Map();
+            Vector2 startVector = new Vector2(0, 0);
+            List<Vector2> pathToGoal = PathFinder.PathFind(map.MapDict, startVector);
+            Dictionary<Vector2, Node> mapDict = map.GetMapWithPath(pathToGoal);
+            map.PrintMap(mapDict);
         }
     }
 }

@@ -2,41 +2,40 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Map
+namespace AI_Pathfinder
 {
     class Node
     {
-        private readonly Vector2 _mapPos;
-        private readonly bool _isGoal;
-        private readonly ReadOnlyCollection<Node> _childNodes;
-
-        public Node(int x, int y) => _mapPos = new Vector2(x, y);
+        public Node(int x, int y)
+        {
+            MapPos = new Vector2(x, y);
+            StringRep = 'x';
+        }
         public Node(int x, int y, bool isGoal)
         {
-            _mapPos = new Vector2(x, y);
-            _isGoal = isGoal;
+            MapPos = new Vector2(x, y);
+            IsGoal = isGoal;
+            if (isGoal) StringRep = 'g';
+            else StringRep = 'x';
         }
-        public Node(Node node, List<Node> childNodes)
+        public Node(Node node, List<Vector2> childNodes)
         {
-            _mapPos = node.MapPos();
-            _isGoal = node.IsGoal();
-            _childNodes = new ReadOnlyCollection<Node>(childNodes);
+            MapPos = node.MapPos;
+            IsGoal = node.IsGoal;
+            StringRep = node.StringRep;
+            ChildNodes = new ReadOnlyCollection<Vector2>(childNodes);
         }
-
-        public Vector2 MapPos() => _mapPos;
-
-        public IEnumerable<Node> GetChildren() => _childNodes;
-
-        public bool IsGoal() => _isGoal;
-
-        public string StringOfChildren()
+        public Node(Node node, bool onPath)
         {
-            string childString = "";
-            foreach (var node1 in _childNodes)
-            {
-                childString = string.Concat(childString, "x");
-            }
-            return childString;
+            MapPos = node.MapPos;
+            IsGoal = node.IsGoal;
+            if (onPath) StringRep = 'p';
+            else StringRep = node.StringRep;
+            ChildNodes = new ReadOnlyCollection<Vector2>(ChildNodes);
         }
+        public Vector2 MapPos { get; }
+        public bool IsGoal { get; } = false;
+        public ReadOnlyCollection<Vector2> ChildNodes { get; } = new ReadOnlyCollection<Vector2>(new List<Vector2>());
+        public char StringRep { get; }
     }
 }
