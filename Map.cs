@@ -2,7 +2,7 @@ using System.Numerics;
 using System.Collections.Generic;
 using System;
 
-namespace AI_Pathfinder
+namespace Pathfinder
 {
     class Map
     {
@@ -20,11 +20,11 @@ namespace AI_Pathfinder
         {
             List<Node> map = new List<Node>();
 
-            for (int x = 0; x < 10; x++)
+            for (int x = 0; x < mapDimensions.X; x++)
             {
-                for (int y = 0; y < 10; y++)
+                for (int y = 0; y < mapDimensions.Y; y++)
                 {
-                    if (x == 9 && y == 5)
+                    if (x == mapDimensions.X - 1 && y == 7)
                     {
                         map.Add(new Node(x, y, true));
                     }

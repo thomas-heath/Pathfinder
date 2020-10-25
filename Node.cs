@@ -2,16 +2,11 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace AI_Pathfinder
+namespace Pathfinder
 {
     class Node
     {
-        public Node(int x, int y)
-        {
-            MapPos = new Vector2(x, y);
-            StringRep = 'x';
-        }
-        public Node(int x, int y, bool isGoal)
+        public Node(int x, int y, bool isGoal = false)
         {
             MapPos = new Vector2(x, y);
             IsGoal = isGoal;
@@ -34,7 +29,7 @@ namespace AI_Pathfinder
             ChildNodes = new ReadOnlyCollection<Vector2>(ChildNodes);
         }
         public Vector2 MapPos { get; }
-        public bool IsGoal { get; } = false;
+        public bool IsGoal { get; }
         public ReadOnlyCollection<Vector2> ChildNodes { get; } = new ReadOnlyCollection<Vector2>(new List<Vector2>());
         public char StringRep { get; }
     }
