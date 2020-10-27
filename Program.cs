@@ -7,11 +7,12 @@ namespace Pathfinder
     {
         static void Main(string[] args)
         {
-            Map map = new Map();
-            Vector2 startVector = new Vector2(0, 0);
-            List<Vector2> pathToGoal = PathFinder.CycleChecking(map.MapDict, startVector);
-            Dictionary<Vector2, Node> mapDict = map.GetMapWithPath(pathToGoal);
-            map.PrintMap(mapDict);
-        }
+            List<Vector2> map = Map.GenerateMap(100, 100);
+            Vector2 goalVertex = new Vector2(99, 99);
+            Vector2 sourceVertex = new Vector2(0, 0);
+            Graph graph = new Graph(map);
+            List<Node> path = PathFinder.BFS(graph, sourceVertex, goalVertex);
+            Map.PrintMap(map, path, goalVertex);
+        } 
     }
 }
